@@ -18,4 +18,11 @@ Funcionalidade: Login de usuário
     Quando informo meu e-mail e uma senha incorreta
     E solicito o login
     Então devo visualizar uma mensagem de credenciais inválidas
-    E devo permanecer na página de login   
+    E devo permanecer na página de login
+
+  Cenário: Sair da conta
+    Dado que possuo uma conta cadastrada
+    E estou autenticado na aplicação
+    Quando solicito o logout
+    Então devo ser direcionado para a página de login
+    E não devo permanecer autenticado  

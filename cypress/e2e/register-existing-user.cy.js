@@ -1,4 +1,4 @@
-describe('Login de usuário', () => {
+describe('Cadastro com e-mail existente', () => {
   const usuario = {
     nome: 'Robson Junior',
     email: `robson${Date.now()}@email.com`,
@@ -58,41 +58,16 @@ describe('Login de usuário', () => {
     })
   })
 
-  it('Realiza o login com um usuário cadastrado', () => {
-    cy.get('[data-qa="login-email"]').type(usuario.email)
-    cy.get('[data-qa="login-password"]').type(usuario.senha)
-    cy.get('[data-qa="login-button"]').click()
+  it('Exibe uma mensagem de erro ao cadastrar um e-mail existente', () => {
+  cy.get('[data-qa="signup-name"]').type(usuario.nome)
+  cy.get('[data-qa="signup-email"]').type(usuario.email)
+  cy.get('[data-qa="signup-button"]').click()
 
-    cy.contains('Logged in as')
-      .parent()
-      .should('contain', usuario.nome)
-  })
+  cy.contains('p', 'Email Address already exist!')
+    .should('be.visible')
 
-  it('Exibe uma mensagem de erro ao informar uma senha incorreta', () => {
-    cy.get('[data-qa="login-email"]').type(usuario.email)
-    cy.get('[data-qa="login-password"]').type('SenhaIncorreta@123')
-    cy.get('[data-qa="login-button"]').click()
+  cy.location('pathname').should('eq', '/signup')
+  cy.contains('b', 'Enter Account Information').should('not.exist')
 
-    cy.contains('p', 'Your email or password is incorrect!')
-      .should('be.visible')
-
-    cy.url().should('include', '/login')
-    cy.contains('a', 'Logout').should('not.exist')
-  })
-
-  it('Realiza o logout de um usuário autenticado', () => {
-    cy.get('[data-qa="login-email"]').type(usuario.email)
-    cy.get('[data-qa="login-password"]').type(usuario.senha)
-    cy.get('[data-qa="login-button"]').click()
-
-    cy.contains('Logged in as')
-    .parent()
-    .should('contain', usuario.nome)
-
-    cy.contains('a', 'Logout').click()
-
-    cy.url().should('include', '/login')
-    cy.contains('h2', 'Login to your account').should('be.visible')
-    cy.contains('a', 'Logout').should('not.exist')
   })
 })

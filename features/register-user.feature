@@ -32,4 +32,10 @@ Funcionalidade: Cadastro e autenticação de usuário
     E devo estar autenticado na aplicação
     E excluo a conta criada
     Então devo visualizar a confirmação de conta excluída
- 
+  
+  Cenário: Tentar cadastrar um e-mail já existente
+    Dado que existe um usuário cadastrado
+    E acesso a página de cadastro e login
+    Quando informo o nome e o e-mail do usuário cadastrado
+    E solicito um novo cadastro
+    Então devo visualizar uma mensagem informando que o e-mail já existe
