@@ -27,6 +27,92 @@ describe('Produtos', () => {
 
     cy.get('.features_items').within(() => {
     cy.contains('.productinfo p', nomeProduto).should('be.visible')
-  })
+   })
  })
+
+  it('Exibe os detalhes do primeiro produto', () => {
+   cy.contains('a', 'Products').click()
+
+   cy.contains('a', 'View Product')
+     .first()
+     .click()
+
+   cy.location('pathname').should('eq', '/product_details/1')
+
+   cy.get('.product-information').within(() => {
+    cy.contains('h2', 'Blue Top').should('be.visible')
+    cy.contains('p', 'Category: Women > Tops').should('be.visible')
+    cy.contains('span', 'Rs. 500').should('be.visible')
+
+    cy.contains('b', 'Availability:')
+      .parent()
+      .should('contain', 'In Stock')
+
+    cy.contains('b', 'Condition:')
+      .parent()
+      .should('contain', 'New')
+
+    cy.contains('b', 'Brand:')
+      .parent()
+      .should('contain', 'Polo')
+    })
+ })
+ 
+ it('Adiciona um produto ao carrinho', () => {
+   cy.contains('a', 'Products').click()
+
+   cy.contains('a', 'View Product')
+     .first()
+     .click()
+
+   cy.location('pathname').should('eq', '/product_details/1')
+
+   cy.get('#quantity').should('have.value', '1')
+   cy.contains('button', 'Add to cart').click()
+
+   cy.contains('h4', 'Added!').should('be.visible')
+   cy.contains('p', 'Your product has been added to cart.')
+     .should('be.visible')
+
+   cy.contains('u', 'View Cart').click()
+
+   cy.location('pathname').should('eq', '/view_cart')
+
+   cy.get('#product-1').within(() => {
+    cy.contains('a', 'Blue Top').should('be.visible')
+    cy.get('.cart_price p').should('have.text', 'Rs. 500')
+    cy.get('.cart_quantity button').should('have.text', '1')
+    cy.get('.cart_total_price').should('have.text', 'Rs. 500')
+    })
+  })
+
+  it.only('Adiciona quatro unidades de um produto ao carrinho', () => {
+  const quantidade = '4'
+
+  cy.contains('a', 'Products').click()
+
+  cy.contains('a', 'View Product')
+    .first()
+    .click()
+
+  cy.location('pathname').should('eq', '/product_details/1')
+
+   cy.get('#quantity')
+     .clear()
+     .type(quantidade)
+     .should('have.value', quantidade)
+
+   cy.contains('button', 'Add to cart').click()
+
+   cy.contains('h4', 'Added!').should('be.visible')
+   cy.contains('u', 'View Cart').click()
+
+   cy.location('pathname').should('eq', '/view_cart')
+
+   cy.get('#product-1').within(() => {
+     cy.contains('a', 'Blue Top').should('be.visible')
+     cy.get('.cart_quantity button').should('have.text', quantidade)
+    })
+  })
+
 })
