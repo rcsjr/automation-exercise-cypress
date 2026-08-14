@@ -86,7 +86,7 @@ describe('Produtos', () => {
     })
   })
 
-  it.only('Adiciona quatro unidades de um produto ao carrinho', () => {
+  it('Adiciona quatro unidades de um produto ao carrinho', () => {
   const quantidade = '4'
 
   cy.contains('a', 'Products').click()

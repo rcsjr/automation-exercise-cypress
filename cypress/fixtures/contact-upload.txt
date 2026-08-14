@@ -1,0 +1,1 @@
+Arquivo utilizado no teste automatizado do formulário de contato.
