@@ -109,26 +109,26 @@ describe('Confirmação do pedido', () => {
       cy.get('[data-qa="expiry-year"]')
         .type(pagamento.anoExpiracao)
   
-      cy.clock()
+      cy.intercept('POST', '**/payment').as('confirmarPagamento')
 
       cy.get('[data-qa="pay-button"]')
         .should('be.visible')
         .and('be.enabled')
         .click()
-        
-      cy.get('#success_message .alert-success.alert')
-        .should('be.visible')
-        .and('contain', 'Your order has been placed successfully!')
-        
-      cy.tick(5000)
-  
+          
+      cy.wait('@confirmarPagamento')
+        .its('response.statusCode')
+        .should('eq', 302)
+      
       cy.location('pathname')
         .should('match', /^\/payment_done\/\d+$/)
-
+      
       cy.contains('b', 'Order Placed!')
         .should('be.visible')
       
-      cy.contains('p','Congratulations! Your order has been confirmed!')
-        .should('be.visible')
+      cy.contains(
+        'p',
+        'Congratulations! Your order has been confirmed!'
+      ).should('be.visible')
    })
 })
