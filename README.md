@@ -55,11 +55,20 @@ automation-exercise-cypress/
 
 ## Pré-requisitos
 
-Antes de executar o projeto, instale:
+Antes de executar o projeto, é necessário possuir:
 
-- [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/) compatível com o Cypress 15
 - npm, instalado juntamente com o Node.js
-- Git
+- [Git](https://git-scm.com/)
+- Conexão com a internet para acessar a aplicação Automation Exercise
+
+Para verificar as instalações:
+
+```bash
+node --version
+npm --version
+git --version
+```
 
 ## Instalação
 
@@ -75,7 +84,13 @@ Acesse a pasta do projeto:
 cd automation-exercise-cypress
 ```
 
-Instale as dependências:
+Instale as dependências registradas no `package-lock.json`:
+
+```bash
+npm ci
+```
+
+O `npm ci` realiza uma instalação limpa utilizando exatamente as versões registradas no arquivo de lock. Para atualizar ou adicionar dependências durante o desenvolvimento, utilize:
 
 ```bash
 npm install
@@ -83,16 +98,57 @@ npm install
 
 ## Execução dos testes
 
+### Modo interativo
+
 Para abrir a interface do Cypress:
 
 ```bash
 npm run cy:open
 ```
 
-Para executar todos os testes em modo headless:
+Na interface, selecione o modo **E2E Testing**, escolha um navegador e execute o arquivo desejado.
+
+### Modo headless
+
+Para executar toda a suíte sem abrir a interface gráfica:
 
 ```bash
 npm run cy:run
+```
+
+Esse é o modo utilizado para regressões completas e futuras execuções no pipeline.
+
+### Executar um arquivo específico
+
+```bash
+npx cypress run --spec "cypress/e2e/login-user.cy.js"
+```
+
+Substitua `login-user.cy.js` pelo arquivo que deseja executar.
+
+### Executar vários arquivos específicos
+
+```bash
+npx cypress run --spec "cypress/e2e/products.cy.js,cypress/e2e/cart.cy.js"
+```
+
+### Executar em um navegador específico
+
+```bash
+npx cypress run --browser chrome
+```
+
+Por padrão, a aplicação testada é definida no `cypress.config.js`:
+
+```js
+baseUrl: 'https://automationexercise.com'
+```
+
+Por isso, os testes podem utilizar caminhos relativos:
+
+```js
+cy.visit('/login')
+cy.visit('/products')
 ```
 
 ## Estratégia utilizada
