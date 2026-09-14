@@ -6,7 +6,7 @@ Projeto de estudos voltado à automação de testes end-to-end da aplicação [A
 
 O objetivo é praticar a construção de cenários automatizados próximos de situações reais de um e-commerce, incluindo preparação de dados por API, validações de interface, documentação BDD e versionamento com Git e GitHub.
 
-> Status do projeto: automação implementada e em fase de documentação e integração contínua.
+> Status do projeto: automação implementada, documentada e integrada ao GitHub Actions.
 
 ## Tecnologias utilizadas
 
@@ -204,8 +204,6 @@ cy.visit('/products')
 
 ## Próximas melhorias
 
-- Configurar execução automatizada com GitHub Actions
-- Adicionar o status do pipeline ao README
 - Gerar relatórios de execução
 - Adicionar evidências visuais dos testes
 
