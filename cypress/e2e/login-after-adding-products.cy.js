@@ -11,67 +11,22 @@ describe('Login após adicionar produtos', () => {
       senha: 'Senha@123'
     }
 
-    cy.request({
-      method: 'POST',
-      url: '/api/createAccount',
-      form: true,
-      body: {
-        name: usuario.nome,
-        email: usuario.email,
-        password: usuario.senha,
-        title: 'Mr',
-        birth_date: '10',
-        birth_month: '10',
-        birth_year: '1996',
-        firstname: 'Robson',
-        lastname: 'Junior',
-        company: 'QA Automation',
-        address1: 'Rua dos Testes, 100',
-        address2: 'Centro',
-        country: 'Canada',
-        zipcode: '01001-000',
-        state: 'São Paulo',
-        city: 'São Paulo',
-        mobile_number: '11999999999'
-      }
-    }).then(({ status, body }) => {
-      const resposta = typeof body === 'string'
-        ? JSON.parse(body)
-        : body
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(201)
-      expect(resposta.message).to.equal('User created!')
-
-      usuarioCriado = true
-    })
+    cy.api_criarUsuario(usuario)
+      .then(() => {
+    usuarioCriado = true
+  })
 
     cy.visit('/products')
   })
 
   afterEach(() => {
-    if (!usuarioCriado) return
+  if (!usuarioCriado) return
 
-    cy.request({
-      method: 'DELETE',
-      url: '/api/deleteAccount',
-      form: true,
-      body: {
-        email: usuario.email,
-        password: usuario.senha
-      }
-    }).then(({ status, body }) => {
-      const resposta = typeof body === 'string'
-        ? JSON.parse(body)
-        : body
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(200)
-      expect(resposta.message).to.equal('Account deleted!')
-
+  cy.api_excluirUsuario(usuario)
+    .then(() => {
       usuarioCriado = false
     })
-  })
+})
 
   it('Realiza login depois de adicionar um produto ao carrinho', () => {
     const produto = {

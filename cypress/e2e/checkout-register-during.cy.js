@@ -24,26 +24,13 @@ describe('Cadastro durante o checkout', () => {
   })
 
   afterEach(() => {
-    if (!usuarioCriado) {
-      return
-    }
+  if (!usuarioCriado) return
 
-    cy.request({
-      method: 'DELETE',
-      url: '/api/deleteAccount',
-      form: true,
-      body: {
-        email: usuario.email,
-        password: usuario.senha
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(200)
-      expect(resposta.message).to.equal('Account deleted!')
+  cy.api_excluirUsuario(usuario)
+    .then(() => {
+      usuarioCriado = false
     })
-  })
+})
 
   it('Registra um usuário ao tentar acessar o checkout', () => {
      cy.contains('button', 'Add to cart').click()

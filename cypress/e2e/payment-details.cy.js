@@ -6,67 +6,17 @@ describe('Dados de pagamento', () => {
   }
 
   beforeEach(() => {
-    cy.request({
-      method: 'POST',
-      url: '/api/createAccount',
-      form: true,
-      body: {
-        name: usuario.nome,
-        email: usuario.email,
-        password: usuario.senha,
-        title: 'Mr',
-        birth_date: '10',
-        birth_month: '10',
-        birth_year: '1996',
-        firstname: 'Robson',
-        lastname: 'Junior',
-        company: 'QA Automation',
-        address1: 'Rua dos Testes, 100',
-        address2: 'Centro',
-        country: 'Canada',
-        zipcode: '01001-000',
-        state: 'São Paulo',
-        city: 'São Paulo',
-        mobile_number: '11999999999'
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
+  cy.api_criarUsuario(usuario)
 
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(201)
-      expect(resposta.message).to.equal('User created!')
-    })
-
-    cy.session(usuario.email, () => {
-      cy.visit('/login')
-
-      cy.get('[data-qa="login-email"]').type(usuario.email)
-      cy.get('[data-qa="login-password"]').type(usuario.senha)
-      cy.get('[data-qa="login-button"]').click()
-
-      cy.contains('Logged in as')
-        .parent()
-        .should('contain', usuario.nome)
-    })
+  cy.session(usuario.email, () => {
+    cy.visit('/login')
+    cy.loginUsuario(usuario)
   })
+})
 
   afterEach(() => {
-    cy.request({
-      method: 'DELETE',
-      url: '/api/deleteAccount',
-      form: true,
-      body: {
-        email: usuario.email,
-        password: usuario.senha
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(200)
-      expect(resposta.message).to.equal('Account deleted!')
-    })
-  })
+  cy.api_excluirUsuario(usuario)
+})
 
   it('Preenche os dados de pagamento', () => {
         const pagamento = {

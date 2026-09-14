@@ -16,55 +16,12 @@ describe('Endereços do checkout', () => {
   }
 
   beforeEach(() => {
-    cy.request({
-      method: 'POST',
-      url: '/api/createAccount',
-      form: true,
-      body: {
-        name: usuario.nome,
-        email: usuario.email,
-        password: usuario.senha,
-        title: 'Mr',
-        birth_date: '10',
-        birth_month: '10',
-        birth_year: '1996',
-        firstname: usuario.primeiroNome,
-        lastname: usuario.sobrenome,
-        company: usuario.empresa,
-        address1: usuario.endereco,
-        address2: usuario.complemento,
-        country: usuario.pais,
-        zipcode: usuario.cep,
-        state: usuario.estado,
-        city: usuario.cidade,
-        mobile_number: usuario.telefone
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(201)
-      expect(resposta.message).to.equal('User created!')
-    })
-  })
+  cy.api_criarUsuario(usuario)
+})
 
   afterEach(() => {
-    cy.request({
-      method: 'DELETE',
-      url: '/api/deleteAccount',
-      form: true,
-      body: {
-        email: usuario.email,
-        password: usuario.senha
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(200)
-      expect(resposta.message).to.equal('Account deleted!')
-    })
-  })
+  cy.api_excluirUsuario(usuario)
+})
 
   it('Exibe corretamente os endereços de entrega e cobrança', () => {
     const validarEndereco = (seletor) => {
@@ -84,14 +41,7 @@ describe('Endereços do checkout', () => {
     }
 
     cy.visit('/login')
-
-    cy.get('[data-qa="login-email"]').type(usuario.email)
-    cy.get('[data-qa="login-password"]').type(usuario.senha)
-    cy.get('[data-qa="login-button"]').click()
-
-    cy.contains('Logged in as')
-      .parent()
-      .should('contain', usuario.nome)
+    cy.loginUsuario(usuario)
 
     cy.visit('/product_details/1')
 
