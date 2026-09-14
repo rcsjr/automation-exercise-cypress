@@ -1,5 +1,7 @@
 # Automation Exercise — Testes automatizados com Cypress
 
+[![Cypress E2E](https://github.com/rcsjr/automation-exercise-cypress/actions/workflows/cypress.yml/badge.svg)](https://github.com/rcsjr/automation-exercise-cypress/actions/workflows/cypress.yml)
+
 Projeto de estudos voltado à automação de testes end-to-end da aplicação [Automation Exercise](https://automationexercise.com/) utilizando Cypress e JavaScript.
 
 O objetivo é praticar a construção de cenários automatizados próximos de situações reais de um e-commerce, incluindo preparação de dados por API, validações de interface, documentação BDD e versionamento com Git e GitHub.
