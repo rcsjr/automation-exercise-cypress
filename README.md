@@ -4,11 +4,11 @@ Projeto de estudos voltado à automação de testes end-to-end da aplicação [A
 
 O objetivo é praticar a construção de cenários automatizados próximos de situações reais de um e-commerce, incluindo preparação de dados por API, validações de interface, documentação BDD e versionamento com Git e GitHub.
 
-> Status do projeto: em desenvolvimento
+> Status do projeto: automação implementada e em fase de documentação e integração contínua.
 
 ## Tecnologias utilizadas
 
-- [Cypress](https://www.cypress.io/)
+- [Cypress 15.19.0](https://www.cypress.io/)
 - JavaScript
 - Node.js e npm
 - BDD com Gherkin
@@ -97,20 +97,38 @@ npm run cy:run
 
 ## Estratégia utilizada
 
-- Os títulos dos testes são escritos em português para facilitar o estudo e a leitura dos cenários
-- Os dados necessários para determinados testes são preparados por API com `cy.request()`
-- Os elementos são localizados preferencialmente por atributos `data-qa`
-- As contas criadas durante os testes são excluídas ao final da execução
-- Os cenários de negócio são documentados em arquivos `.feature`
-- Cada teste valida tanto a ação executada quanto o resultado esperado
+- Títulos dos testes escritos em português para facilitar o entendimento dos cenários
+- Preparação e limpeza de dados por API para reduzir o tempo de execução
+- Comandos personalizados para criação, autenticação e exclusão de usuários
+- Massas de usuário, pagamento e produtos centralizadas em arquivos reutilizáveis
+- E-mails dinâmicos para garantir independência entre os testes
+- Uso preferencial de atributos `data-qa` e seletores contextualizados
+- Limpeza condicional das contas criadas durante os testes
+- Cenários de negócio documentados em arquivos `.feature`
+- Execução independente dos testes, sem dependência da ordem da suíte
 
 ## Próximas melhorias
 
-- Concluir os cenários planejados para o Automation Exercise
-- Refatorar trechos repetidos utilizando comandos personalizados
-- Adicionar execução automatizada com GitHub Actions
+- Configurar execução automatizada com GitHub Actions
+- Adicionar o status do pipeline ao README
 - Gerar relatórios de execução
 - Adicionar evidências visuais dos testes
+
+## Resultado atual
+
+A suíte completa possui:
+
+- 27 arquivos de especificação
+- 40 testes automatizados
+- 40 testes aprovados
+- Nenhum teste pendente ou ignorado
+
+Última execução completa realizada em modo headless:
+
+```text
+All specs passed!
+40 passing
+```
 
 ## Autor
 
