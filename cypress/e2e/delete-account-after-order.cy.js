@@ -92,7 +92,7 @@ describe('Exclusão da conta após o pedido', () => {
       'Congratulations! Your order has been confirmed!'
     ).should('be.visible')
 
-    cy.contains('a', 'Continue')
+    cy.get('[data-qa="continue-button"]')
       .should('be.visible')
       .click()
 

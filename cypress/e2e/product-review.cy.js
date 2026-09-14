@@ -1,3 +1,4 @@
+import { blueTop } from '../fixtures/produtos'
 describe('Avaliação de produto', () => {
   beforeEach(() => {
     cy.visit('/products')
@@ -10,8 +11,9 @@ describe('Avaliação de produto', () => {
       comentario: 'Produto avaliado durante um teste automatizado com Cypress.'
     }
 
-    cy.contains('a', 'View Product')
-      .first()
+    cy.contains('.productinfo p', blueTop.nome)
+      .closest('.product-image-wrapper')
+      .contains('a', 'View Product')
       .click()
 
     cy.location('pathname').should('eq', '/product_details/1')

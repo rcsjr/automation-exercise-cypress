@@ -1,3 +1,4 @@
+import { blueTop } from '../fixtures/produtos'
 describe('Produtos', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -33,8 +34,9 @@ describe('Produtos', () => {
   it('Exibe os detalhes do primeiro produto', () => {
    cy.contains('a', 'Products').click()
 
-   cy.contains('a', 'View Product')
-     .first()
+   cy.contains('.productinfo p', blueTop.nome)
+     .closest('.product-image-wrapper')
+     .contains('a', 'View Product')
      .click()
 
    cy.location('pathname').should('eq', '/product_details/1')
@@ -61,8 +63,9 @@ describe('Produtos', () => {
  it('Adiciona um produto ao carrinho', () => {
    cy.contains('a', 'Products').click()
 
-   cy.contains('a', 'View Product')
-     .first()
+   cy.contains('.productinfo p', blueTop.nome)
+     .closest('.product-image-wrapper')
+     .contains('a', 'View Product')
      .click()
 
    cy.location('pathname').should('eq', '/product_details/1')
@@ -91,8 +94,9 @@ describe('Produtos', () => {
 
   cy.contains('a', 'Products').click()
 
-  cy.contains('a', 'View Product')
-    .first()
+  cy.contains('.productinfo p', blueTop.nome)
+    .closest('.product-image-wrapper')
+    .contains('a', 'View Product')
     .click()
 
   cy.location('pathname').should('eq', '/product_details/1')
