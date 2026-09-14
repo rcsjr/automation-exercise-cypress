@@ -31,7 +31,7 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-            - name: Executar testes E2E
+      - name: Executar testes E2E
         uses: cypress-io/github-action@v7
         with:
           install: false  
