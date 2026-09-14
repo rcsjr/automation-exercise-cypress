@@ -1,15 +1,12 @@
+import { criarUsuario } from '../fixtures/usuario'
+import { blueTop } from '../fixtures/produtos'
 describe('Login após adicionar produtos', () => {
   let usuarioCriado = false
   let usuario
 
   beforeEach(() => {
     usuarioCriado = false
-
-    usuario = {
-      nome: 'Robson Junior',
-      email: `robson${Date.now()}@email.com`,
-      senha: 'Senha@123'
-    }
+    usuario = criarUsuario()
 
     cy.api_criarUsuario(usuario)
       .then(() => {
@@ -29,12 +26,7 @@ describe('Login após adicionar produtos', () => {
 })
 
   it('Realiza login depois de adicionar um produto ao carrinho', () => {
-    const produto = {
-      id: 1,
-      nome: 'Blue Top'
-    }
-
-    cy.contains('.productinfo p', produto.nome)
+    cy.contains('.productinfo p', blueTop.nome)
       .closest('.single-products')
       .find('.productinfo .add-to-cart')
       .click()

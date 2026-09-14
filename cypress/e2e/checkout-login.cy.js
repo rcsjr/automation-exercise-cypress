@@ -1,60 +1,15 @@
+import { criarUsuario } from '../fixtures/usuario'
 describe('Login antes do checkout', () => {
-  const usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123'
-  }
+  let usuario
 
   beforeEach(() => {
-    cy.request({
-      method: 'POST',
-      url: '/api/createAccount',
-      form: true,
-      body: {
-        name: usuario.nome,
-        email: usuario.email,
-        password: usuario.senha,
-        title: 'Mr',
-        birth_date: '10',
-        birth_month: '10',
-        birth_year: '1996',
-        firstname: 'Robson',
-        lastname: 'Junior',
-        company: 'QA Automation',
-        address1: 'Rua dos Testes, 100',
-        address2: 'Centro',
-        country: 'Canada',
-        zipcode: '01001-000',
-        state: 'São Paulo',
-        city: 'São Paulo',
-        mobile_number: '11999999999'
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(201)
-      expect(resposta.message).to.equal('User created!')
-    })
-  })
+  usuario = criarUsuario()
+  cy.api_criarUsuario(usuario)
+})
 
   afterEach(() => {
-    cy.request({
-      method: 'DELETE',
-      url: '/api/deleteAccount',
-      form: true,
-      body: {
-        email: usuario.email,
-        password: usuario.senha
-      }
-    }).then(({ status, body }) => {
-      const resposta = JSON.parse(body)
-
-      expect(status).to.equal(200)
-      expect(resposta.responseCode).to.equal(200)
-      expect(resposta.message).to.equal('Account deleted!')
-    })
-  })
+  cy.api_excluirUsuario(usuario)
+})
 
   it('Realiza o login antes de acessar o checkout', () => {
     cy.visit('/login')

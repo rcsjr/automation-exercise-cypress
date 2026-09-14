@@ -1,17 +1,17 @@
+import { criarUsuario } from '../fixtures/usuario'
+import { criarPagamento } from '../fixtures/pagamento'
 describe('Confirmação do pedido', () => {
-  const usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123'
-  }
+  let usuario
 
   beforeEach(() => {
-    cy.api_criarUsuario(usuario)
+  usuario = criarUsuario()
 
-    cy.session(usuario.email, () => {
+  cy.api_criarUsuario(usuario)
+
+  cy.session(usuario.email, () => {
     cy.visit('/login')
     cy.loginUsuario(usuario)
-   })
+  })
 })
 
   afterEach(() => {
@@ -19,13 +19,7 @@ describe('Confirmação do pedido', () => {
 })
 
   it('Confirma um pedido com dados de pagamento válidos', () => {
-      const pagamento = {
-        nomeCartao: 'Robson Junior',
-        numeroCartao: '4111111111111111',
-        cvc: '123',
-        mesExpiracao: '12',
-        anoExpiracao: '2030'
-      }
+      const pagamento = criarPagamento()
   
       cy.visit('/product_details/1')
   

@@ -1,13 +1,11 @@
+import { criarUsuario } from '../fixtures/usuario'
 describe('Cadastro de usuário', () => {
   beforeEach(() => {
     cy.visit('/login')
   })
 
   it('Inicia o cadastro com dados válidos', () => {
-    const usuario = {
-      nome: 'Robson Junior',
-      email: `robson${Date.now()}@email.com`
-    }
+    const usuario = criarUsuario()
 
     cy.get('[data-qa="signup-name"]').type(usuario.nome)
     cy.get('[data-qa="signup-email"]').type(usuario.email)

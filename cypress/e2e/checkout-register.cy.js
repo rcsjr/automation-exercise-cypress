@@ -1,26 +1,14 @@
+import { criarUsuario } from '../fixtures/usuario'
 describe('Cadastro antes do checkout', () => {
-  const usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123',
-    primeiroNome: 'Robson',
-    sobrenome: 'Junior',
-    empresa: 'QA Automation',
-    endereco: 'Rua dos Testes, 100',
-    complemento: 'Centro',
-    pais: 'Canada',
-    estado: 'São Paulo',
-    cidade: 'São Paulo',
-    cep: '01001-000',
-    telefone: '11999999999'
-  }
+  let usuario
 
   let usuarioCriado = false
 
   beforeEach(() => {
-    usuarioCriado = false
+  usuarioCriado = false
+  usuario = criarUsuario()
 
-    cy.visit('/login')
+  cy.visit('/login')
   })
 
   afterEach(() => {
@@ -30,7 +18,7 @@ describe('Cadastro antes do checkout', () => {
     .then(() => {
       usuarioCriado = false
     })
-})
+  })
 
   it('Registra um usuário antes de acessar o checkout', () => {
     cy.get('[data-qa="signup-name"]').type(usuario.nome)

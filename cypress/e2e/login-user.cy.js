@@ -1,11 +1,11 @@
+import { criarUsuario } from '../fixtures/usuario'
+
 describe('Login de usuário', () => {
-  const usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123'
-  }
+  let usuario
 
   beforeEach(() => {
+    usuario = criarUsuario()
+
     cy.api_criarUsuario(usuario)
     cy.visit('/login')
   })

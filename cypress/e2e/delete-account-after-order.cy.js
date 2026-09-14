@@ -1,16 +1,13 @@
+import { criarUsuario } from '../fixtures/usuario'
+import { criarPagamento } from '../fixtures/pagamento'
 describe('Exclusão da conta após o pedido', () => {
   let usuarioCriado = false
   let usuario
 
   beforeEach(() => {
   usuarioCriado = false
-
-  usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123'
-  }
-
+  usuario = criarUsuario() 
+  
   cy.api_criarUsuario(usuario)
     .then(() => {
       usuarioCriado = true
@@ -32,13 +29,7 @@ describe('Exclusão da conta após o pedido', () => {
 })
 
   it('Confirma um pedido e exclui a conta após a compra', () => {
-    const pagamento = {
-      nomeCartao: 'Robson Junior',
-      numeroCartao: '4111111111111111',
-      cvc: '123',
-      mesExpiracao: '12',
-      anoExpiracao: '2030'
-    }
+    const pagamento = criarPagamento()
 
     cy.visit('/product_details/1')
 

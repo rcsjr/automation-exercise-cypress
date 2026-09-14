@@ -1,26 +1,14 @@
+import { criarUsuario } from '../fixtures/usuario'
 describe('Cadastro durante o checkout', () => {
-  const usuario = {
-    nome: 'Robson Junior',
-    email: `robson${Date.now()}@email.com`,
-    senha: 'Senha@123',
-    primeiroNome: 'Robson',
-    sobrenome: 'Junior',
-    empresa: 'QA Automation',
-    endereco: 'Rua dos Testes, 100',
-    complemento: 'Centro',
-    pais: 'Canada',
-    estado: 'São Paulo',
-    cidade: 'São Paulo',
-    cep: '01001-000',
-    telefone: '11999999999'
-  }
+  let usuario
 
   let usuarioCriado = false
 
   beforeEach(() => {
-    usuarioCriado = false
+  usuarioCriado = false
+  usuario = criarUsuario()
 
-    cy.visit('/product_details/1')
+  cy.visit('/product_details/1')
   })
 
   afterEach(() => {
