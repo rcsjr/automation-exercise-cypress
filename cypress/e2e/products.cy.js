@@ -31,7 +31,7 @@ describe('Produtos', () => {
    })
  })
 
-  it('Exibe os detalhes do primeiro produto', () => {
+  it('Exibe os detalhes do produto Blue Top', () => {
    cy.contains('a', 'Products').click()
 
    cy.contains('.productinfo p', blueTop.nome)

@@ -16,28 +16,65 @@ O objetivo é praticar a construção de cenários automatizados próximos de si
 
 ## Cenários automatizados
 
+Atualmente, o projeto possui 40 testes automatizados distribuídos entre os módulos abaixo.
+
 ### Cadastro e autenticação
 
 - Início do cadastro com dados válidos
 - Cadastro completo de um novo usuário
-- Exclusão da conta criada durante o teste
 - Tentativa de cadastro com e-mail existente
 - Login com usuário cadastrado
+- Tentativa de login com credenciais inválidas
 - Tentativa de login com senha incorreta
-- Logout do usuário
+- Logout de usuário autenticado
 
-### Produtos e catálogo
+### Produtos, catálogo e avaliações
 
-- Visualização da lista de produtos
-- Pesquisa de produto
-- Visualização dos detalhes de um produto
+- Visualização da lista de produtos disponíveis
+- Pesquisa de produto pelo nome
+- Visualização dos detalhes do produto Blue Top
 - Adição de produto ao carrinho
 - Adição de quatro unidades de um produto ao carrinho
+- Visualização de produtos de uma categoria feminina
+- Alternância entre categorias femininas e masculinas
+- Visualização dos produtos de uma marca
+- Alternância entre marcas de produtos
+- Envio de avaliação de produto
+- Adição de produto recomendado ao carrinho
+- Pesquisa e adição de dois produtos ao carrinho
 
 ### Carrinho
 
-- Validação de dois produtos no carrinho
 - Remoção de produto do carrinho
+- Validação de dois produtos adicionados ao carrinho
+- Persistência dos produtos no carrinho após o login
+- Login após adicionar um produto ao carrinho
+
+### Checkout, pagamento e pedido
+
+- Validação dos endereços de entrega e cobrança
+- Preenchimento de comentário no checkout
+- Login antes de acessar o checkout
+- Validação dos produtos no resumo do pedido
+- Cadastro de usuário antes do checkout
+- Cadastro de usuário durante o checkout
+- Preenchimento dos dados de pagamento
+- Confirmação de pedido com dados de pagamento válidos
+- Exclusão da conta após a conclusão do pedido
+- Download e validação do conteúdo da nota fiscal
+
+### Contato
+
+- Envio de mensagem de contato com arquivo anexado
+
+### Navegação e assinatura
+
+- Acesso à página de casos de teste
+- Rolagem da página até o rodapé
+- Retorno ao topo utilizando a seta da aplicação
+- Retorno ao topo utilizando a rolagem do navegador
+- Inscrição por e-mail pelo rodapé da página inicial
+- Inscrição por e-mail pelo rodapé do carrinho
 
 ## Estrutura do projeto
 
