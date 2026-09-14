@@ -30,8 +30,9 @@ describe('Formulário de contato', () => {
       return true
     })
 
-    cy.get('[data-qa="submit-button"]').click()
-    cy.pause()
+    cy.get('[data-qa="submit-button"]')
+      .click()
+    
 
     cy.contains(
       '.status',
